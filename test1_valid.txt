@@ -1,0 +1,30 @@
+number hirafarman;
+sach_ya_jhoot flag;
+jumla name;
+
+number farman_add(number a, number b) {
+   wapis a + b;
+}
+
+kuch_nahi displayfarmanfunc() {
+   x = 10;
+}
+
+number main() {
+    x = farman_add(5, 3);
+    displayfarmanfunc();
+    
+    agar (x > 5) {
+        x = x - 1;
+    }
+    
+    har (number i = 0; i < 10; i = i + 1) {
+        x = x + i;
+    }
+    
+    jabtak (x < 100) {
+        x = x + 1;
+    }
+    
+    wapis 0;
+}

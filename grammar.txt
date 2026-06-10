@@ -1,0 +1,72 @@
+SimpleLang EBNF Grammar Specification (Roman Urdu Keywords)
+
+Program         ::= { GlobalElement }
+GlobalElement   ::= Declaration | FunctionDecl | Statement
+
+Statement       ::= Assignment 
+                  | IfStatement 
+                  | ForLoop 
+                  | WhileLoop 
+                  | FunctionCallStmt 
+                  | ReturnStmt
+                  | Block
+
+Type            ::= "number"       (* int *)
+                  | "sach_ya_jhoot" (* bool *)
+                  | "jumla"         (* string *)
+                  | "kuch_nahi"     (* void *)
+
+Declaration     ::= Type ID ";"
+
+Assignment      ::= ID "=" Expression ";"
+
+Expression      ::= Additive
+
+Additive        ::= Multiplicative { ( "+" | "-" ) Multiplicative }
+
+Multiplicative  ::= Primary { ( "*" | "/" ) Multiplicative }
+
+Primary         ::= ID 
+                  | NUMBER 
+                  | STRING_LITERAL 
+                  | "sach" 
+                  | "jhoot" 
+                  | FunctionCall 
+                  | "(" Expression ")"
+
+IfStatement     ::= "agar" "(" Expression ")" Block
+
+WhileLoop       ::= "jabtak" "(" Expression ")" Block
+
+ForLoop         ::= "har" "(" Declaration Assignment Expression ";" Assignment ")" Block
+                  (* Simplified for assignment: har (shumara i = 0; i < 10; i = i + 1) *)
+
+Block           ::= "{" { Statement | Declaration } "}"
+
+FunctionDecl    ::= Type ID "(" [ ParameterList ] ")" Block
+
+ParameterList   ::= Type ID { "," Type ID }
+
+FunctionCall    ::= ID "(" [ ArgumentList ] ")"
+
+FunctionCallStmt ::= FunctionCall ";"
+
+ArgumentList    ::= Expression { "," Expression }
+
+ReturnStmt      ::= "wapis" Expression ";"
+
+ID              ::= [a-zA-Z][a-zA-Z0-9_]*
+NUMBER          ::= [0-9]+
+STRING_LITERAL  ::= '"' [^"]* '"'
+
+Keywords Mapping:
+int    -> number
+bool   -> sach_ya_jhoot
+string -> jumla
+void   -> kuch_nahi
+if     -> agar
+for    -> har
+while  -> jabtak
+return -> wapis
+true   -> sach
+false  -> jhoot

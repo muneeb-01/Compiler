@@ -1,0 +1,6 @@
+kuch_nahi func() {
+    x = 10;
+    agar (x > 5) {
+        x = 0;
+    
+}
