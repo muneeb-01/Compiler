@@ -89,6 +89,8 @@ class Parser:
             self.parse_while_loop()
         elif self.match('FOR'):
             self.parse_for_loop()
+        elif self.match('SWITCH'):
+            self.parse_switch_stmt()
         elif self.match('RETURN'):
             self.parse_return_stmt()
         elif self.match('ID'):
@@ -107,6 +109,29 @@ class Parser:
             self.parse_block()
         else:
             self.error(f"Unexpected token {self.current_token.type} ('{self.current_token.value}')")
+
+    def parse_switch_stmt(self):
+        self.consume('SWITCH')
+        self.consume('SYM_LPAREN')
+        self.parse_expression()
+        self.consume('SYM_RPAREN')
+        self.consume('SYM_LBRACE')
+        while self.match('CASE'):
+            self.parse_case_stmt()
+        if self.match('DEFAULT'):
+            self.parse_default_stmt()
+        self.consume('SYM_RBRACE')
+
+    def parse_case_stmt(self):
+        self.consume('CASE')
+        self.parse_expression()
+        self.consume('SYM_COLON')
+        self.parse_block()
+
+    def parse_default_stmt(self):
+        self.consume('DEFAULT')
+        self.consume('SYM_COLON')
+        self.parse_block()
 
     def parse_if_stmt(self):
         self.consume('IF')

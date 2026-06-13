@@ -7,6 +7,7 @@ Statement       ::= Assignment
                   | IfStatement 
                   | ForLoop 
                   | WhileLoop 
+                  | SwitchStatement
                   | FunctionCallStmt 
                   | ReturnStmt
                   | Block
@@ -41,6 +42,12 @@ WhileLoop       ::= "jabtak" "(" Expression ")" Block
 ForLoop         ::= "har" "(" Declaration Assignment Expression ";" Assignment ")" Block
                   (* Simplified for assignment: har (shumara i = 0; i < 10; i = i + 1) *)
 
+SwitchStatement ::= "badlo" "(" Expression ")" "{" { CaseStatement } [ DefaultStatement ] "}"
+
+CaseStatement   ::= "soorat" Expression ":" Block
+
+DefaultStatement::= "baqi" ":" Block
+
 Block           ::= "{" { Statement | Declaration } "}"
 
 FunctionDecl    ::= Type ID "(" [ ParameterList ] ")" Block
@@ -67,6 +74,9 @@ void   -> kuch_nahi
 if     -> agar
 for    -> har
 while  -> jabtak
+switch -> badlo
+case   -> soorat
+default-> baqi
 return -> wapis
 true   -> sach
 false  -> jhoot

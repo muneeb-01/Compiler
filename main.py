@@ -31,7 +31,8 @@ if __name__ == "__main__":
             'test2_error_decl.txt',
             'test3_error_brace.txt',
             'test4_error_assign.txt',
-            'test5_error_func.txt'
+            'test5_error_func.txt',
+            'test6_switch.txt'
         ]
         for tf in test_files:
             run_parser(tf)

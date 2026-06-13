@@ -20,23 +20,27 @@ class Lexer:
         'jabtak': 'WHILE',
         'wapis': 'RETURN',
         'sach': 'BOOL_LIT',
-        'jhoot': 'BOOL_LIT'
+        'jhoot': 'BOOL_LIT',
+        'badlo': 'SWITCH',
+        'soorat': 'CASE',
+        'baqi': 'DEFAULT'
     }
 
     TOKEN_SPEC = [
         ('NUMBER',   r'\d+'),
-        ('STRING', r'"[^"]*"'),
+        ('STRING_LIT', r'"[^"]*"'),
         ('ID',       r'[a-zA-Z][a-zA-Z0-9_]*'),
-        ('LOGICAL_OP', r'&&|\|\|'),
-        ('REL_OP',   r'==|!=|<=|>=|<|>'),
-        ('ASSIGN_OP', r'=|+=|-=|\*=|/=|%='),
-        ('ARITH_OP', r'[+\-*/]'),
-        ('SEMI', r';'),
-        ('L_CURLY', r'\{'),
-        ('R_CURLY', r'\}'),
-        ('L_PAREN', r'\('),
-        ('R_PAREN', r'\)'),
-        ('COMMA', r','),
+        ('OP_LOGIC', r'&&|\|\|'),
+        ('OP_REL',   r'==|!=|<=|>=|<|>'),
+        ('OP_ASSIGN', r'\+=|-=|\*=|/=|%=|='),
+        ('OP_ARITH', r'[+\-*/]'),
+        ('SYM_SEMI', r';'),
+        ('SYM_COLON', r':'),
+        ('SYM_LBRACE', r'\{'),
+        ('SYM_RBRACE', r'\}'),
+        ('SYM_LPAREN', r'\('),
+        ('SYM_RPAREN', r'\)'),
+        ('SYM_COMMA', r','),
         ('NEWLINE',  r'\n'),
         ('SKIP',     r'[ \t\r]+'),
         ('MISMATCH', r'.'),
@@ -58,17 +62,17 @@ class Lexer:
             elif kind == 'ID':
                 kind = self.KEYWORDS.get(value, 'ID')
                 self.tokens.append(Token(kind, value, line_num))
-            elif kind == 'STRING':
-                self.tokens.append(Token('STRING', value[1:-1], line_num))
-            elif kind == 'LOGICAL_OP':
-                self.tokens.append(Token('LOGICAL_OP', value, line_num))
-            elif kind == 'REL_OP':
-                self.tokens.append(Token('REL_OP', value, line_num))
-            elif kind == 'ASSIGN_OP':
-                self.tokens.append(Token('ASSIGN_OP', value, line_num))
-            elif kind == 'ARITH_OP':
-                self.tokens.append(Token('ARITH_OP', value, line_num))
-            elif kind in ['SEMI', 'L_CURLY', 'R_CURLY', 'L_PAREN', 'R_PAREN', 'COMMA']:
+            elif kind == 'STRING_LIT':
+                self.tokens.append(Token('STRING_LIT', value[1:-1], line_num))
+            elif kind == 'OP_LOGIC':
+                self.tokens.append(Token('OP_LOGIC', value, line_num))
+            elif kind == 'OP_REL':
+                self.tokens.append(Token('OP_REL', value, line_num))
+            elif kind == 'OP_ASSIGN':
+                self.tokens.append(Token('OP_ASSIGN', value, line_num))
+            elif kind == 'OP_ARITH':
+                self.tokens.append(Token('OP_ARITH', value, line_num))
+            elif kind in ['SYM_SEMI', 'SYM_COLON', 'SYM_LBRACE', 'SYM_RBRACE', 'SYM_LPAREN', 'SYM_RPAREN', 'SYM_COMMA']:
                 self.tokens.append(Token(kind, value, line_num))
             elif kind == 'NEWLINE':
                 line_num += 1

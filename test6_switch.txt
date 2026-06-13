@@ -1,0 +1,14 @@
+number x;
+x = 2;
+
+badlo (x) {
+    soorat 1: {
+        x = 10;
+    }
+    soorat 2: {
+        x = 20;
+    }
+    baqi: {
+        x = 0;
+    }
+}
